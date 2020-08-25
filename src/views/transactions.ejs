@@ -10,13 +10,13 @@
       <th>Amount</th>
     </tr>
     <% account.transactions.forEach( transaction => { %>
-      <tr>
-        <td><%= transaction.date %></td>
-        <td><%= transaction.type %></td>
-        <td><%= transaction.description %></td>
-        <td><%= transaction.status %></td>
-        <td>$<%= transaction.amount %></td>
-      </tr>
+    <tr>
+      <td><%= transaction.date %></td>
+      <td><%= transaction.type %></td>
+      <td><%= transaction.description %></td>
+      <td><%= transaction.status %></td>
+      <td>$<%= transaction.amount %></td>
+    </tr>
     <% }); %>
   </table>
 </div>
