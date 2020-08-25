@@ -5,16 +5,13 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 
+const { accounts, users, writeJSON } = require('./data');
+
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
 app.use('/js', express.static(path.join(__dirname, 'public/js')));
 app.use('/css', express.static(path.join(__dirname, 'public/css')));
 app.use(express.urlencoded(true));
-
-const accountData = fs.readFileSync(path.join(__dirname, 'json', 'accounts.json'), 'utf8');
-const accounts = JSON.parse(accountData);
-const userData = fs.readFileSync(path.join(__dirname, 'json', 'users.json'), 'utf8');
-const users = JSON.parse(userData);
 
 app.get('/', (req, res) => res.render('index', { title: 'Account Summary', accounts }));
 app.get('/profile', (req, res) => res.render('profile', { user: users[0] }));
@@ -25,10 +22,6 @@ app.get('/credit', (req, res) => res.render('account', { account: accounts.credi
 app.get('/transfer', (req, res) => res.render('transfer'));
 app.get('/payment', (req, res) => res.render('payment', { account: accounts.credit }));
 
-// const writeJSON = () => {
-//   const accountsJSON = JSON.stringify(accounts, null, 4);
-//   fs.writeFileSync(path.join(__dirname, 'json/accounts.json'), accountsJSON, 'utf8');
-// };
 
 app.post('/transfer', (req, res) => {
   accounts[req.body.from].balance = accounts[req.body.from].balance - req.body.amount;
